@@ -14,8 +14,6 @@ export default function ProductEditScreen(props) {
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState('');
   const [brand, setBrand] = useState('');
-  const [rating, setRating] = useState('');
-  const [numReviews, setNumReviews] = useState('');
   const [description, setDescription] = useState('');
 
   const productDetails = useSelector((state) => state.productDetails);
@@ -43,13 +41,12 @@ export default function ProductEditScreen(props) {
       setCategory(product.category);
       setCountInStock(product.countInStock);
       setBrand(product.brand);
-      setRating(product.rating);
-      setNumReviews(product.numReviews);
       setDescription(product.description);
     }
   }, [product, dispatch, productId, successUpdate, props.history]);
   const submitHandler = (e) => {
     e.preventDefault();
+    // TODO: dispatch update product
     dispatch(
       updateProduct({
         _id: productId,
@@ -59,8 +56,6 @@ export default function ProductEditScreen(props) {
         category,
         brand,
         countInStock,
-        rating,
-        numReviews,
         description,
       })
     );
@@ -93,7 +88,9 @@ export default function ProductEditScreen(props) {
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
-        <h2>Create Product</h2>
+        <div>
+          <h1>Create Product</h1>
+        </div>
         {loadingUpdate && <LoadingBox></LoadingBox>}
         {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
         {loading ? (
@@ -173,26 +170,6 @@ export default function ProductEditScreen(props) {
                 placeholder="Enter countInStock"
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="rating">Rating</label>
-              <input
-                id="rating"
-                type="text"
-                placeholder="Enter rating"
-                value={rating}
-                onChange={(e) => setRating(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="numReviews">NumReviews</label>
-              <input
-                id="numReviews"
-                type="text"
-                placeholder="Enter numReviews"
-                value={numReviews}
-                onChange={(e) => setNumReviews(e.target.value)}
               ></input>
             </div>
             <div>

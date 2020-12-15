@@ -37,7 +37,13 @@ export default function ProfileScreen() {
     if (password !== confirmPassword) {
       alert('Password and Confirm Password Are Not Matched');
     } else {
-      dispatch(updateUserProfile({ userId: user._id, name, email, password }));
+      dispatch(updateUserProfile({ 
+        userId: user._id, 
+        name, 
+        email, 
+        password 
+      })
+      );
     }
   };
   return (

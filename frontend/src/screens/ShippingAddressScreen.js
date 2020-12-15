@@ -5,9 +5,11 @@ import CheckoutSteps from '../components/CheckoutSteps';
 
 export default function ShippingAddressScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
+ 
   const { userInfo } = userSignin;
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
+
   if (!userInfo) {
     props.history.push('/signin');
   }
@@ -19,10 +21,28 @@ export default function ShippingAddressScreen(props) {
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
+      dispatch(
+        saveShippingAddress({
+          fullName,
+          address,
+          city,
+          postalCode,
+          country,
+        })
+      );
+      props.history.push('/payment');
+  };
+  const chooseOnMap = () => {
     dispatch(
-      saveShippingAddress({ fullName, address, city, postalCode, country })
+      saveShippingAddress({
+        fullName,
+        address,
+        city,
+        postalCode,
+        country,
+      })
     );
-    props.history.push('/payment');
+    props.history.push('/map');
   };
   return (
     <div>
